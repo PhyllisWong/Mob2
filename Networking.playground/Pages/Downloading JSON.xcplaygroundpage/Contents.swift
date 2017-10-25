@@ -32,6 +32,7 @@ let task = session.dataTask(with: request) { (data, response, error) in
     
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
+        print("eliel json")
         print(json)
     }
 }
@@ -89,6 +90,7 @@ postReq.httpBody = jsonData
 session.dataTask(with: postReq) { (data, resp, err) in
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
+        print("eliel json2")
         print(json)
     }
 }.resume()
@@ -101,6 +103,27 @@ session.dataTask(with: postReq) { (data, resp, err) in
  2. Find some JSON API resources online and use URLSession to download the JSON
 
 */
+// Challenge 1
+// Use a guard let to safely unwrap the http methods of a request
+
+
+let urlPoke = URL(string: "http://pokeapi.co/api/v2/")!
+
+var requestPoke = URLRequest(url: urlPoke)
+request.httpMethod = "GET"
+
+let sessionPoke = URLSession.shared
+
+let taskPoke = sessionPoke.dataTask(with: requestPoke) { (data, response, error) in
+
+    do {
+      guard let data = data else {return}
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
+                print("Phyllis json")
+                print(json)
+    }
+}
+taskPoke.resume()
 
 
 /*: ## Resources
