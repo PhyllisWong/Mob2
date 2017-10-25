@@ -31,7 +31,7 @@ let session = URLSession.shared
 let task = session.dataTask(with: request) { (data, response, error) in
     
     if let data = data {
-        let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
         print(json)
     }
 }
@@ -88,7 +88,7 @@ postReq.httpBody = jsonData
 
 session.dataTask(with: postReq) { (data, resp, err) in
     if let data = data {
-        let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
         print(json)
     }
 }.resume()
