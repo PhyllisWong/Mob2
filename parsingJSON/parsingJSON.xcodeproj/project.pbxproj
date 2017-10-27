@@ -12,6 +12,7 @@
 		B9BCAB281FA2EFD9007F9E76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9BCAB261FA2EFD9007F9E76 /* Main.storyboard */; };
 		B9BCAB2A1FA2EFD9007F9E76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9BCAB291FA2EFD9007F9E76 /* Assets.xcassets */; };
 		B9BCAB2D1FA2EFD9007F9E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9BCAB2B1FA2EFD9007F9E76 /* LaunchScreen.storyboard */; };
+		B9BCAB351FA38712007F9E76 /* jsonParsonDecodableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCAB341FA38712007F9E76 /* jsonParsonDecodableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		B9BCAB291FA2EFD9007F9E76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9BCAB2C1FA2EFD9007F9E76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B9BCAB2E1FA2EFD9007F9E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9BCAB341FA38712007F9E76 /* jsonParsonDecodableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jsonParsonDecodableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				B9BCAB221FA2EFD9007F9E76 /* AppDelegate.swift */,
 				B9BCAB241FA2EFD9007F9E76 /* ViewController.swift */,
+				B9BCAB341FA38712007F9E76 /* jsonParsonDecodableViewController.swift */,
 				B9BCAB261FA2EFD9007F9E76 /* Main.storyboard */,
 				B9BCAB291FA2EFD9007F9E76 /* Assets.xcassets */,
 				B9BCAB2B1FA2EFD9007F9E76 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			files = (
 				B9BCAB251FA2EFD9007F9E76 /* ViewController.swift in Sources */,
 				B9BCAB231FA2EFD9007F9E76 /* AppDelegate.swift in Sources */,
+				B9BCAB351FA38712007F9E76 /* jsonParsonDecodableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
