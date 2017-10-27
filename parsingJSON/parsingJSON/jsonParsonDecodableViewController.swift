@@ -15,10 +15,10 @@ import UIKit
 //    let imageURL: String
 //}
 
-struct Pokemon {
-    let <#name#> = <#value#>
-    
-}
+//struct Pokemon {
+//    let <#name#> = <#value#>
+//
+//}
 
 class ViewController: UIViewController {
 
@@ -26,10 +26,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let jsonURLString = "http://pokeapi.co/api/v2/pokemon/7/"
-//        let jsonURLString = "https://api.letsbuildthatapp.com/jsondecodable/course"
         guard let url = URL(string: jsonURLString) else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, err) in
+        // url is a GET request by default, might need this statement for other json parsing
+        let getRequest = URLRequest(url: url)
+        URLSession.shared.dataTask(with: getRequest) { (data, response, err) in
             guard let data = data else { return }
             
 //            if let dataAsString = String(data: data, encoding: .utf8) {
