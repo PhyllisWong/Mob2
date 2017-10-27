@@ -33,7 +33,7 @@ let task = session.dataTask(with: request) { (data, response, error) in
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
 //        print("eliel json")
-//        print(json)
+        print(json)
     }
 }
 
@@ -91,7 +91,7 @@ session.dataTask(with: postReq) { (data, resp, err) in
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
 //        print("eliel json2")
-//        print(json)
+        print(json)
     }
 }.resume()
 
@@ -112,18 +112,15 @@ let urlPoke = URL(string: "http://pokeapi.co/api/v2/")!
 var requestPoke = URLRequest(url: urlPoke)
 request.httpMethod = "GET"
 
-let sessionPoke = URLSession.shared
-
-let taskPoke = sessionPoke.dataTask(with: requestPoke) { (data, response, error) in
+let sessionPoke = URLSession.shared.dataTask(with: requestPoke) { (data, response, error) in
 
     do {
       guard let data = data else {return}
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
 //                print("Phyllis json")
-//                print(json)
+                print(json)
     }
-}
-taskPoke.resume()
+}.resume()
 
 // http://pokeapi.co/api/v2/pokemon/7/
 
@@ -143,6 +140,7 @@ let taskPoke2 = sessionPoke2.dataTask(with: requestPoke2) { (data, response, err
 }
 
 taskPoke2.resume()
+
 //: Below is code required to run this playground, it is not a part of the class material
 PlaygroundSupport.PlaygroundPage.current.needsIndefiniteExecution = true
 
