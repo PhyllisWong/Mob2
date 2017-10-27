@@ -23,7 +23,7 @@ struct Joke : Decodable {
 //    }
 }
 
-class ViewController: UIViewController {
+class JokeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class ViewController: UIViewController {
             do {
                 let joke = try JSONDecoder().decode(Joke.self, from: data)
                 print(joke.id)
-                // Swift 2/3/ObjC style
+//                 Swift 2/3/ObjC style
 //                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] else { return }
 ////                print(json)
 //                let joke = Joke(json: json)
