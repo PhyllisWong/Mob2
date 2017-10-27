@@ -32,8 +32,8 @@ let task = session.dataTask(with: request) { (data, response, error) in
     
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
-        print("eliel json")
-        print(json)
+//        print("eliel json")
+//        print(json)
     }
 }
 
@@ -90,8 +90,8 @@ postReq.httpBody = jsonData
 session.dataTask(with: postReq) { (data, resp, err) in
     if let data = data {
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
-        print("eliel json2")
-        print(json)
+//        print("eliel json2")
+//        print(json)
     }
 }.resume()
 
@@ -119,17 +119,30 @@ let taskPoke = sessionPoke.dataTask(with: requestPoke) { (data, response, error)
     do {
       guard let data = data else {return}
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
-                print("Phyllis json")
-                print(json)
+//                print("Phyllis json")
+//                print(json)
     }
 }
 taskPoke.resume()
 
+// http://pokeapi.co/api/v2/pokemon/7/
 
-/*: ## Resources
- [URLSessions](https://www.raywenderlich.com/158106/urlsession-tutorial-getting-started)
- */
+//let urlPoke2 = URL(string: "http://pokeapi.co/api/v2/")!
+var requestPoke2 = URLRequest(url: URL(string: "http://pokeapi.co/api/v2/")!)
+request.httpMethod = "GET"
+let sessionPoke2 = URLSession.shared
+let taskPoke2 = sessionPoke2.dataTask(with: requestPoke2) { (data, response, error) in
+    
+    do {
+        guard let data = data else {return}
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) else {return}
+            print("Squirtle")
+            print(json)
+//            print(json["pokemon-shape"])
+    }
+}
 
+taskPoke2.resume()
 //: Below is code required to run this playground, it is not a part of the class material
 PlaygroundSupport.PlaygroundPage.current.needsIndefiniteExecution = true
 
