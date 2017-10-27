@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9A4909D1FA3CD33008199C2 /* JokeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4909C1FA3CD33008199C2 /* JokeViewController.swift */; };
 		B9BCAB231FA2EFD9007F9E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCAB221FA2EFD9007F9E76 /* AppDelegate.swift */; };
 		B9BCAB251FA2EFD9007F9E76 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9BCAB241FA2EFD9007F9E76 /* ViewController.swift */; };
 		B9BCAB281FA2EFD9007F9E76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9BCAB261FA2EFD9007F9E76 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B9A4909C1FA3CD33008199C2 /* JokeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JokeViewController.swift; sourceTree = "<group>"; };
 		B9BCAB1F1FA2EFD9007F9E76 /* parsingJSON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = parsingJSON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9BCAB221FA2EFD9007F9E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9BCAB241FA2EFD9007F9E76 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				B9BCAB221FA2EFD9007F9E76 /* AppDelegate.swift */,
 				B9BCAB241FA2EFD9007F9E76 /* ViewController.swift */,
 				B9BCAB341FA38712007F9E76 /* jsonParsonDecodableViewController.swift */,
+				B9A4909C1FA3CD33008199C2 /* JokeViewController.swift */,
 				B9BCAB261FA2EFD9007F9E76 /* Main.storyboard */,
 				B9BCAB291FA2EFD9007F9E76 /* Assets.xcassets */,
 				B9BCAB2B1FA2EFD9007F9E76 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 				B9BCAB251FA2EFD9007F9E76 /* ViewController.swift in Sources */,
 				B9BCAB231FA2EFD9007F9E76 /* AppDelegate.swift in Sources */,
 				B9BCAB351FA38712007F9E76 /* jsonParsonDecodableViewController.swift in Sources */,
+				B9A4909D1FA3CD33008199C2 /* JokeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
