@@ -23,7 +23,7 @@ struct Joke : Decodable {
 //    }
 }
 
-class JokeViewController: UIViewController {
+class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
