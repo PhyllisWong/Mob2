@@ -39,16 +39,17 @@ extension Anime : Decodable {
         // defining our (keyed) container
         let container = try decoder.container(keyedBy: TopLevelKeys.self)
         
+        // Id - top level in data array
+        let id: String = try container.decode(String.self, forKey: .id)
+        
         // Attributes Container
         let attributesContainer = try container.nestedContainer(keyedBy: AttributeKeys.self, forKey: .attributes)
         
         // Container holding title
-        let titlesEnContainer = try attributesContainer.nestedContainer(keyedBy: TitleKeys.self, forKey: .titles)
+        let titlesContainer = try attributesContainer.nestedContainer(keyedBy: TitleKeys.self, forKey: .titles)
         
-        let title: String = try titlesEnContainer.decodeIfPresent(String.self, forKey: .en) ?? ""
-        
-        // Id - top level in data array
-        let id: String = try container.decode(String.self, forKey: .id)
+        let title: String = try titlesContainer.decodeIfPresent(String.self, forKey: .en) ?? ""
+       
         
         // Poster Image
         let thumbnailContainer = try attributesContainer.nestedContainer(keyedBy: ThumbnailKeys.self, forKey: .posterImage)
@@ -94,5 +95,7 @@ class ViewController: UIViewController {
     }
     
 }
+
+
 
 
