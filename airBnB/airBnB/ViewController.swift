@@ -11,52 +11,59 @@ import UIKit
 struct Listing {
     let bedrooms : Int
     let city : String
-//    let firstName : String
-    
-    init (bedrooms: Int, city: String) {
-        self.bedrooms = bedrooms
-        self.city = city
-//        self.firstName = firstName
-    }
+    let firstName : String
 }
 
-struct SearchResults: Decodable {
-    let search_results : [Listing]
+struct Search: Decodable {
+    // Everything in this struct is to access the listing container
+    let searchResults : [Listing]
+    
+    enum SearchResultKey: String, CodingKey {
+        case searchResults = "search_results"
+    }
+    // need init to change from their "search_result" snake_case to swift camelCase
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: SearchResultKey.self)
+        let listings = try? container.decode([Listing].self, forKey: .searchResults)
+        self.searchResults = listings!
+        
+    }
 }
 
 extension Listing: Decodable {
     
     // declaring our keys
-    enum TopLevelKeys: String, CodingKey {
+    enum SearchResultKeys: String, CodingKey {
         case listing
     }
     
     enum ListingKeys: String, CodingKey {
         case bedrooms
         case city
-//        case primary_host
+        case primaryHost = "primary_host"
     }
     
-//    enum PrimaryHostKeys: String, CodingKey {
-//        case first_name
-//    }
+    enum PrimaryHostKeys: String, CodingKey {
+        case firstName = "first_name"
+    }
     
     
     
     init(from decoder: Decoder) throws {
         // defining our (keyed) container
-        let container = try decoder.container(keyedBy: TopLevelKeys.self)
+        let container = try decoder.container(keyedBy: SearchResultKeys.self)
         
         // Listing Container
         let listingContainer = try container.nestedContainer(keyedBy: ListingKeys.self, forKey: .listing)
         
         let bedrooms: Int = try listingContainer.decodeIfPresent(Int.self, forKey: .bedrooms) ?? 1
         let city: String = try listingContainer.decodeIfPresent(String.self, forKey: .city) ?? ""
-//        let primary_host: [String] = try listingContainer.decodeIfPresent([String].self, forKey: .primary_host) ?? [""]
         
-//        // Primary Host Container
-//        let primaryHostContainer = try listingContainer.nestedContainer(keyedBy: primary_host.self, forKey: .first_name)
-        self.init(bedrooms: bedrooms, city: city)
+        // Primary Host Container
+        let primaryHostContainer = try listingContainer.nestedContainer(keyedBy: PrimaryHostKeys.self, forKey: .primaryHost)
+        let firstName = try primaryHostContainer.decode(String.self, forKey: .firstName)
+        
+        self.init(bedrooms: bedrooms, city: city, firstName: firstName)
 
     }
 }
@@ -70,19 +77,23 @@ class ViewController: UIViewController {
         guard let url = URL(string: jsonURLString) else { return }
         URLSession.shared.dataTask(with: url) { (data, response, err) in
             
-            guard let data = data else { return }
+            if let data = data {
+                let resultsList = try? JSONDecoder().decode(Search.self, from: data)
+                guard let listing = resultsList?.searchResults else { return }
+                dump(listing)
+            }
             
-            do {
-                let searchResult = try JSONDecoder().decode([SearchResults].self, from: data)
-                print(searchResult)
-            }
-            catch let jsonErr {
-                print("Error fetching json: ", jsonErr)
-            }
+            
+//            do {
+//                let searchResult = try JSONDecoder().decode(Search.self, from: data)
+//                guard let listing = searchResult?.sea
+//            }
+//            catch let jsonErr {
+//                print("Error fetching json: ", jsonErr)
+//            }
             
         }.resume()
-        let listing = Listing(bedrooms: 1, city: "Ostuni")
-        print(listing)
+        
     }
     
 
