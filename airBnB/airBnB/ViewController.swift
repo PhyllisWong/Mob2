@@ -81,16 +81,9 @@ class ViewController: UIViewController {
                 let resultsList = try? JSONDecoder().decode(Search.self, from: data)
                 guard let listing = resultsList?.searchResults else { return }
                 dump(listing)
+                dump(listing[5].firstName)
+                dump(listing[14].city)
             }
-            
-            
-//            do {
-//                let searchResult = try JSONDecoder().decode(Search.self, from: data)
-//                guard let listing = searchResult?.sea
-//            }
-//            catch let jsonErr {
-//                print("Error fetching json: ", jsonErr)
-//            }
             
         }.resume()
         
