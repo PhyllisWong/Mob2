@@ -10,5 +10,5 @@ This is a horror/comedy movie about how people's greatest fears come to life aft
 - The New Girl: Zooey Deschanel (xpensive): Sky Xu
 - The Junior Engineer: Jesse Eisenberg(nice choice, but too expensive): TJ King
 - The IT Guy: Woody Harrelson (out of budget): Matthew Harrilal
-- The Suave Dude Who Essentially Is Eccentric: Mondale Felix or Aakash
+- The Suave Dude Who Essentially Is Eccentric: Mondale Felix or Aakash Sudhakar
 
