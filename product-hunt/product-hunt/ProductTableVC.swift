@@ -8,22 +8,17 @@
 
 import UIKit
 
-// Placeholder to format view cells
-enum Mood: String {
-    case happy = "😀"
-    case bot = "🤖"
-    case cowboy = "🤠"
-    case poop = "💩"
-}
+
 
 
 class ProductTableVC: UITableViewController {
     
-    let moods: [Mood] = [
-        .happy,
-        .bot,
-        .cowboy,
-        .poop
+    // Placeholder to format view cells
+    let products = [
+        "Product 1",
+        "Product 2",
+        "Product 3",
+        "Product 4"
     ]
 
     override func viewDidLoad() {
@@ -34,11 +29,11 @@ class ProductTableVC: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return moods.count
+        return products.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath)
-        cell.textLabel?.text = moods[indexPath.row].rawValue
+        cell.textLabel?.text = products[indexPath.row]
         return cell
     }
 }
