@@ -10,7 +10,7 @@ import Foundation
 
 class Networking {
     let session = URLSession.shared
-    let baseURL = "https://api.producthunt.com/v1/posts/all"
+    let baseURL = "https://api.producthunt.com/v1/"
     
     func headerField(authorization: String) -> [String : String] {
         return [
@@ -22,8 +22,9 @@ class Networking {
     }
 
     func fetchPost(completion: @escaping ([Post]) -> ()) {
-        let productUrl = URL(string: baseURL)
+        let productUrl = URL(string: baseURL.appending("posts/all"))
         var request = URLRequest(url: productUrl!)
+        
         request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
         
         session.dataTask(with: request) { (data, response, err) in
@@ -35,6 +36,28 @@ class Networking {
                 return completion(posts)
             }
         }.resume()
+    }
+    
+    
+    
+    
+    func fetchComment(postId: Int, completion: @escaping ([Comment]) -> ()) {
+//        print("fetch this shit!")
+        let path = "posts/\(postId)/comments"
+        let commentUrl = URL(string: baseURL.appending(path))
+        var request = URLRequest(url: commentUrl!)
+        
+        request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
+        session.dataTask(with: request) { (data, respinse, err) in
+            
+            if let data = data {
+                let commentList = try? JSONDecoder().decode(CommentsList.self, from: data)
+                guard let comments = commentList?.comments else { return }
+                print("do something else")
+                return completion(comments)
+            }
+        }.resume()
+        
     }
 }
 
