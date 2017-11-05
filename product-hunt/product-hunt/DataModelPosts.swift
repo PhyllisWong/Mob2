@@ -16,7 +16,7 @@ struct PostsLists: Decodable {
 struct Post {
     let commentsCount : Int
     let name : String
-    let tagLine : String
+    let tagline : String
     let id : Int
     //    let thumbnail : Thumbnail
     let votesCount : Int
@@ -34,7 +34,7 @@ extension Post: Decodable {
         case commentsCount = "comments_count"
         case name
         case id
-        case tagLine = "tagline"
+        case tagline = "tagline"
         case thumbnail
         case votesCount = "votes_count"
     }
@@ -48,8 +48,8 @@ extension Post: Decodable {
         let container = try decoder.container(keyedBy: PostKeys.self)
         
         let commentsCount: Int = try container.decodeIfPresent(Int.self, forKey: .commentsCount) ?? 0
-        let name: String = try container.decodeIfPresent(String.self, forKey: .name) ?? ""
-        let tagLine: String = try container.decodeIfPresent(String.self, forKey: .tagLine) ?? ""
+        let name: String = try container.decodeIfPresent(String.self, forKey: .name) ?? "No name"
+        let tagline: String = try container.decodeIfPresent(String.self, forKey: .tagline) ?? "No tagline"
         let votesCount: Int = try container.decodeIfPresent(Int.self, forKey: .votesCount) ?? 0
         let id: Int = try container.decode(Int.self, forKey: .id)
         
@@ -58,7 +58,7 @@ extension Post: Decodable {
         //
         //        let thumbnail = try thumbnailContainer.decodeIfPresent(Thumbnail.self, forKey: .imageURL) ?? Thumbnail(imageURL: "")
         
-        self.init(commentsCount: commentsCount, name: name, tagLine: tagLine, id: id, votesCount: votesCount)
+        self.init(commentsCount: commentsCount, name: name, tagline: tagline, id: id, votesCount: votesCount)
         
     }
 }

@@ -11,20 +11,22 @@ import UIKit
 class CommentsTableVC: UITableViewController {
     
     var comments = [Comment]()
+    var id: Int?
+    var productName: String?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.rowHeight = 110
+        self.title = self.productName
         
-        // Instance of networking class
             let networking = Networking()
-            // calling the fetch callback on the instance of networking
-            networking.fetchComment(postId: 1) { (comments) in
+            if let id = id {
+            networking.fetchComment(postId: id) { (comments) in
                 DispatchQueue.main.async {
-                    // populates the posts array in the main thread
                     self.comments = comments
-                    // update the viewController with the data
                     self.tableView.reloadData()
+                }
             }
         }
 
@@ -48,7 +50,7 @@ class CommentsTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return comments.count
+        return self.comments.count
     }
 
     

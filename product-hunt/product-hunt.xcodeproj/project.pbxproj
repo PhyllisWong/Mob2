@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B921F3151FAFC2A5000D045C /* CommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B921F3141FAFC2A5000D045C /* CommentViewCell.swift */; };
 		B93D11641FAAB00A00695A2D /* DataModelPosts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93D11631FAAB00A00695A2D /* DataModelPosts.swift */; };
 		B95935301FAA985500F46A8D /* NetWorking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B959352F1FAA985500F46A8D /* NetWorking.swift */; };
 		B962F5801FACDF600092E5C0 /* CommentsDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B962F57F1FACDF600092E5C0 /* CommentsDataModel.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B921F3141FAFC2A5000D045C /* CommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewCell.swift; sourceTree = "<group>"; };
 		B93D11631FAAB00A00695A2D /* DataModelPosts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelPosts.swift; sourceTree = "<group>"; };
 		B959352F1FAA985500F46A8D /* NetWorking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorking.swift; sourceTree = "<group>"; };
 		B962F57F1FACDF600092E5C0 /* CommentsDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsDataModel.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				B9F72FDD1FA83AC300C3AFA6 /* ProductViewCell.swift */,
 				B9F72FCD1FA8029800C3AFA6 /* ProductTableVC.swift */,
 				B962F5811FACE1C30092E5C0 /* CommentsTableVC.swift */,
+				B921F3141FAFC2A5000D045C /* CommentViewCell.swift */,
 				B959352F1FAA985500F46A8D /* NetWorking.swift */,
 				B9F72FCF1FA8029800C3AFA6 /* Main.storyboard */,
 				B9F72FD21FA8029800C3AFA6 /* Assets.xcassets */,
@@ -161,6 +164,7 @@
 				B962F5801FACDF600092E5C0 /* CommentsDataModel.swift in Sources */,
 				B93D11641FAAB00A00695A2D /* DataModelPosts.swift in Sources */,
 				B9F72FCC1FA8029800C3AFA6 /* AppDelegate.swift in Sources */,
+				B921F3151FAFC2A5000D045C /* CommentViewCell.swift in Sources */,
 				B962F5821FACE1C30092E5C0 /* CommentsTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

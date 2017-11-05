@@ -12,18 +12,16 @@ class ProductTableVC: UITableViewController {
     
     // Empty array to hold the posts fetched from data
     var posts = [Post]()
+    var comments = [Comment]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Instance of networking class
+        self.tableView.rowHeight = 110
         let networking = Networking()
-        // calling the fetch callback on the instance of networking
         networking.fetchPost() { (posts) in
-            // Tell the async queue to bring the data back to the main thread
             DispatchQueue.main.async {
-                // populates the posts array in the main thread
+//                guard let posts = result as? [Post] else {return}
                 self.posts = posts
-                // update the viewController with the data
                 self.tableView.reloadData()
             }
         }
@@ -33,16 +31,32 @@ class ProductTableVC: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
+        return self.posts.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath)
-        cell.textLabel?.text = posts[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProductViewCell
+        let raw = indexPath.item
+        cell.post = posts[raw]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedPost = posts[indexPath.row]
+        let id = selectedPost.id
+        let productName =  selectedPost.name
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let commentsTVC  = storyboard.instantiateViewController(withIdentifier: "CommentsTableVC") as! CommentsTableVC
+        
+        commentsTVC.id = id
+        commentsTVC.productName = productName
+        
+//        self.navigationController?.pushViewController(commentsTVC, animated: true)
         self.performSegue(withIdentifier: "commentSegue", sender: self)
+        
+        
     }
 }
 
