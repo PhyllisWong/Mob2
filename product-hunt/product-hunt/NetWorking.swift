@@ -32,7 +32,7 @@ class Networking {
             if let data = data {
                 let postList = try? JSONDecoder().decode(PostsLists.self, from: data)
                 guard let posts = postList?.posts else { return }
-                print("do something")
+//                print("do something")
                 return completion(posts)
             }
         }.resume()

@@ -27,7 +27,7 @@ extension Comment: Decodable {
         let container = try decoder.container(keyedBy: CommentKeys.self)
         
         let body: String = try container.decodeIfPresent(String.self, forKey: .body) ?? ""
-        
+        print("decode the body")
         self.init(body: body)
     }
 }

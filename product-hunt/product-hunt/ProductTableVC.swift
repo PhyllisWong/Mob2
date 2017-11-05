@@ -44,14 +44,12 @@ class ProductTableVC: UITableViewController {
         
         let selectedPost = posts[indexPath.row]
         let id = selectedPost.id
-        let productName =  selectedPost.name
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let commentsTVC  = storyboard.instantiateViewController(withIdentifier: "CommentsTableVC") as! CommentsTableVC
         
         commentsTVC.id = id
-        commentsTVC.productName = productName
         
 //        self.navigationController?.pushViewController(commentsTVC, animated: true)
         self.performSegue(withIdentifier: "commentSegue", sender: self)

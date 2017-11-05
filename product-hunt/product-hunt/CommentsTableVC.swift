@@ -10,22 +10,24 @@ import UIKit
 
 class CommentsTableVC: UITableViewController {
     
-    var comments = [Comment]()
+    var commentsList = [Comment]()
     var id: Int?
-    var productName: String?
     
 
     override func viewDidLoad() {
+        print("Here")
         super.viewDidLoad()
         self.tableView.rowHeight = 110
-        self.title = self.productName
         
             let networking = Networking()
+        
             if let id = id {
-            networking.fetchComment(postId: id) { (comments) in
+            networking.fetchComment(postId: id) { (result) in
                 DispatchQueue.main.async {
-                    self.comments = comments
+                    
+                    self.commentsList = result
                     self.tableView.reloadData()
+                    
                 }
             }
         }
@@ -50,14 +52,15 @@ class CommentsTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.comments.count
+        return self.commentsList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentViewCell", for: indexPath) as! CommentViewCell
 
-        cell.textLabel?.text = comments[indexPath.row].body
+        print("show some shit here!")
+        cell.comment = commentsList[indexPath.row]
         return cell
     }
     
