@@ -16,6 +16,7 @@ class ProductTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Product Hunt API"
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.rowHeight = 150
         let networking = Networking()
