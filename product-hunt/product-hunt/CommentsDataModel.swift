@@ -35,9 +35,9 @@ extension Comment: Decodable {
         let container = try decoder.container(keyedBy: CommentKeys.self)
         let body: String = try container.decodeIfPresent(String.self, forKey: .body) ?? "No comment available"
         let user = try container.nestedContainer(keyedBy: UserKeys.self, forKey: .user)
-        let name = try user.decode(String.self, forKey: .name)
-        let username = try user.decode(String.self, forKey: .username)
-        print("decode the body")
+        let name = try user.decodeIfPresent(String.self, forKey: .name) ?? "No name"
+        let username = try user.decodeIfPresent(String.self, forKey: .username) ?? "No username"
+//        print("decode the body")
         self.init(body: body, name: name, username: username)
     }
 }

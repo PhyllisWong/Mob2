@@ -54,7 +54,9 @@ class ProductTableVC: UITableViewController {
         commentsTVC.id = id
         commentsTVC.productName = productName
         
-        self.performSegue(withIdentifier: "commentSegue", sender: self)
+//        self.performSegue(withIdentifier: "commentSegue", sender: self)
+        self.navigationController?.pushViewController(commentsTVC, animated: true)
+
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

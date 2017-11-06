@@ -19,7 +19,7 @@ class ProductViewCell: UITableViewCell {
         didSet {
             productName.text = post?.name
             tagline.text = post?.tagline
-            votesCount.text = "\(post?.votesCount ?? 0)"
+            votesCount.text = "votes: \(post?.votesCount ?? 0)"
             let request = URLRequest(url: (post?.imageUrl)!)
             productImage.load(request)
         }
