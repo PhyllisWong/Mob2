@@ -14,51 +14,40 @@ struct PostsLists: Decodable {
 
 // Data structure to display in each tableViewCell
 struct Post {
-    let commentsCount : Int
+    let id : Int
     let name : String
     let tagline : String
-    let id : Int
-    //    let thumbnail : Thumbnail
     let votesCount : Int
+    let imageUrl: URL
 }
 
-// Data structure to access the image URL
-struct Thumbnail: Decodable {
-    let imageURL : String
-}
 
 // Extend the Post struct to convert JSON to Swift naming convention
 extension Post: Decodable {
     
     enum PostKeys: String, CodingKey {
-        case commentsCount = "comments_count"
-        case name
         case id
-        case tagline = "tagline"
-        case thumbnail
+        case name
+        case tagline
         case votesCount = "votes_count"
+        case thumbnail
     }
     
-    enum ImageResultKey: String, CodingKey {
+    // Data structure to access the image URL
+    enum ThumbnailKeys: String, CodingKey {
         case imageURL = "image_url"
     }
     
     init(from decoder: Decoder) throws {
-        // Defining the (keyed) container
         let container = try decoder.container(keyedBy: PostKeys.self)
-        
-        let commentsCount: Int = try container.decodeIfPresent(Int.self, forKey: .commentsCount) ?? 0
+        let id: Int = try container.decode(Int.self, forKey: .id)
         let name: String = try container.decodeIfPresent(String.self, forKey: .name) ?? "No name"
         let tagline: String = try container.decodeIfPresent(String.self, forKey: .tagline) ?? "No tagline"
         let votesCount: Int = try container.decodeIfPresent(Int.self, forKey: .votesCount) ?? 0
-        let id: Int = try container.decode(Int.self, forKey: .id)
+        let thumbnail = try container.nestedContainer(keyedBy: ThumbnailKeys.self, forKey: .thumbnail)
+        let imageUrl = try thumbnail.decode(URL.self, forKey: .imageURL)
         
-        // thumbnail container
-        //        let thumbnailContainer = try container.nestedContainer(keyedBy: ImageResultKey.self, forKey: .thumbnail)
-        //
-        //        let thumbnail = try thumbnailContainer.decodeIfPresent(Thumbnail.self, forKey: .imageURL) ?? Thumbnail(imageURL: "")
-        
-        self.init(commentsCount: commentsCount, name: name, tagline: tagline, id: id, votesCount: votesCount)
+        self.init(id: id, name: name, tagline: tagline, votesCount: votesCount, imageUrl: imageUrl)
         
     }
 }

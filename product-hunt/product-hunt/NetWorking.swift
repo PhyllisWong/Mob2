@@ -15,7 +15,7 @@ enum HTTPMethod: String {
 
 enum Resource {
     case posts
-    case comments(postId: String)
+    case comments(postId: Int)
     
     func httpMethod() -> HTTPMethod {
         switch self {
@@ -27,9 +27,10 @@ enum Resource {
     func header(token: String) -> [String: String] {
         switch self {
         case .posts, .comments:
-            return [
-                "Authorization": "\(token)",
-                "Content-Type": "application/json"
+            return ["Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer \(token)",
+                    "Host": "api.producthunt.com"
             ]
         }
     }
@@ -46,7 +47,7 @@ enum Resource {
     func urlParameters() -> [String: String] {
         switch self {
         case .comments(let postId):
-            return ["search_id": postId]
+            return ["search[post_id]": String(postId)]
         case .posts:
             return [:]
         }
@@ -65,52 +66,80 @@ class Networking {
     let session = URLSession.shared
     let baseURL = "https://api.producthunt.com/v1/"
     
-    func headerField(authorization: String) -> [String : String] {
-        return [
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(authorization)",
-            "Host": "api.producthunt.com"
-        ]
-    }
-
-    func fetchPost(completion: @escaping ([Post]) -> ()) {
-        let productUrl = URL(string: baseURL.appending("posts/all"))
-        var request = URLRequest(url: productUrl!)
+    func fetch(resource: Resource, completion: @escaping ([Decodable]) -> ()) {
+        let fullURL = baseURL + resource.path()
+        var item = NSURLQueryItem()
         
-        request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
+        let componets = NSURLComponents(string: fullURL)
+        for (key, value) in resource.urlParameters() {
+            item = NSURLQueryItem(name: key, value: value)
+        }
         
-        session.dataTask(with: request) { (data, response, err) in
-            
+        componets?.queryItems = [item as URLQueryItem]
+        
+        let url = componets?.url
+        print(url ?? "")
+        
+        var request = URLRequest(url: url!)
+        request.allHTTPHeaderFields = resource.header(token: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
+        request.httpMethod = resource.httpMethod().rawValue
+        
+        session.dataTask(with: request) { (data, res, err) in
             if let data = data {
-                let postList = try? JSONDecoder().decode(PostsLists.self, from: data)
-                guard let posts = postList?.posts else { return }
-//                print("do something")
-                return completion(posts)
+                switch resource {
+                case .posts:
+                    let postList = try? JSONDecoder().decode(PostsLists.self, from: data)
+                    guard let posts = postList?.posts else { return }
+                    print("do something")
+                    return completion(posts)
+                    
+                case .comments:
+                    let commentList = try? JSONDecoder().decode(CommentsList.self, from: data)
+                    guard let comments = commentList?.comments else { return }
+                    print("do something else")
+                    return completion(comments)
+                }
             }
         }.resume()
     }
     
-    
-    
-    
-    func fetchComment(postId: Int, completion: @escaping ([Comment]) -> ()) {
-//        print("fetch this shit!")
-        let path = "posts/\(postId)/comments"
-        let commentUrl = URL(string: baseURL.appending(path))
-        var request = URLRequest(url: commentUrl!)
-        
-        request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
-        session.dataTask(with: request) { (data, respinse, err) in
-            
-            if let data = data {
-                let commentList = try? JSONDecoder().decode(CommentsList.self, from: data)
-                guard let comments = commentList?.comments else { return }
-                print("do something else")
-                return completion(comments)
-            }
-        }.resume()
-    }
+//    func fetchPost(completion: @escaping ([Post]) -> ()) {
+//        let productUrl = URL(string: baseURL.appending("posts/all"))
+//        var request = URLRequest(url: productUrl!)
+//
+//        request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
+//
+//        session.dataTask(with: request) { (data, response, err) in
+//
+//            if let data = data {
+//                let postList = try? JSONDecoder().decode(PostsLists.self, from: data)
+//                guard let posts = postList?.posts else { return }
+////                print("do something")
+//                return completion(posts)
+//            }
+//        }.resume()
+//    }
+//
+//
+//
+//
+//    func fetchComment(postId: Int, completion: @escaping ([Comment]) -> ()) {
+////        print("fetch this shit!")
+//        let path = "posts/\(postId)/comments"
+//        let commentUrl = URL(string: baseURL.appending(path))
+//        var request = URLRequest(url: commentUrl!)
+//
+//        request.allHTTPHeaderFields = headerField(authorization: "d11bcb361e17fc5272675f5d2fc9d33dbf20e6312019c0a50a7c30bd5d6b1ba6")
+//        session.dataTask(with: request) { (data, respinse, err) in
+//
+//            if let data = data {
+//                let commentList = try? JSONDecoder().decode(CommentsList.self, from: data)
+//                guard let comments = commentList?.comments else { return }
+//                print("do something else")
+//                return completion(comments)
+//            }
+//        }.resume()
+//    }
 }
 
 

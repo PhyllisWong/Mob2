@@ -12,31 +12,26 @@ class CommentsTableVC: UITableViewController {
     
     var commentsList = [Comment]()
     var id: Int?
+    var productName: String?
     
 
     override func viewDidLoad() {
         print("Here")
         super.viewDidLoad()
-        self.tableView.rowHeight = 110
-        
-            let networking = Networking()
-        
-            if let id = id {
-            networking.fetchComment(postId: id) { (result) in
+        self.tableView.rowHeight = 150
+        self.title = self.productName
+        if let id = id {
+            Networking().fetch(resource: .comments(postId: id)) { (result) in
                 DispatchQueue.main.async {
-                    
-                    self.commentsList = result
+                    guard let commentsList = result as? [Comment] else { return }
+                    self.commentsList = [Comment]()
+                    self.commentsList = commentsList
                     self.tableView.reloadData()
                     
                 }
             }
         }
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,7 +54,7 @@ class CommentsTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentViewCell", for: indexPath) as! CommentViewCell
 
-        print("show some shit here!")
+        print("some shit here!")
         cell.comment = commentsList[indexPath.row]
         return cell
     }

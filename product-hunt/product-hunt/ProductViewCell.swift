@@ -13,25 +13,16 @@ class ProductViewCell: UITableViewCell {
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var tagline: UILabel!
     @IBOutlet weak var votesCount: UILabel!
-//    @IBOutlet weak var image: WKWebView!
+    @IBOutlet weak var productImage: WKWebView!
     
     var post: Post? {
         didSet {
             productName.text = post?.name
             tagline.text = post?.tagline
             votesCount.text = "\(post?.votesCount ?? 0)"
-            
+            let request = URLRequest(url: (post?.imageUrl)!)
+            productImage.load(request)
         }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
     }
 
 }

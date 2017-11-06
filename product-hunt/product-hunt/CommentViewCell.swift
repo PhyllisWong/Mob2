@@ -10,12 +10,13 @@ import UIKit
 
 class CommentViewCell: UITableViewCell {
     
-    @IBOutlet weak var ProductNameLabel: UILabel!
-    @IBOutlet weak var CommentBodyLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var bodyTextField: UITextView!
     
     var comment: Comment? {
         didSet {
-            CommentBodyLabel.text = comment?.body
+            userNameLabel.text = comment?.name
+            bodyTextField.text = comment?.body
         }
     }
 }

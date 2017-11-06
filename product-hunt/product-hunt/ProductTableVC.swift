@@ -11,17 +11,18 @@ import UIKit
 class ProductTableVC: UITableViewController {
     
     // Empty array to hold the posts fetched from data
-    var posts = [Post]()
+    var list = [Post]()
     var comments = [Comment]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.rowHeight = 110
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = 150
         let networking = Networking()
-        networking.fetchPost() { (posts) in
+        networking.fetch(resource: .posts) { (result) in
             DispatchQueue.main.async {
-//                guard let posts = result as? [Post] else {return}
-                self.posts = posts
+                guard let list = result as? [Post] else {return}
+                self.list = list
                 self.tableView.reloadData()
             }
         }
@@ -31,30 +32,53 @@ class ProductTableVC: UITableViewController {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
+        return self.list.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as! ProductViewCell
         let raw = indexPath.item
-        cell.post = posts[raw]
+        cell.post = list[raw]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let selectedPost = posts[indexPath.row]
+        let selectedPost = list[indexPath.row]
         let id = selectedPost.id
+        let productName = selectedPost.name
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let commentsTVC  = storyboard.instantiateViewController(withIdentifier: "CommentsTableVC") as! CommentsTableVC
         
         commentsTVC.id = id
+        commentsTVC.productName = productName
         
-//        self.navigationController?.pushViewController(commentsTVC, animated: true)
         self.performSegue(withIdentifier: "commentSegue", sender: self)
-        
-        
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
