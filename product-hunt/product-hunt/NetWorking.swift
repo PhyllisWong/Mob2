@@ -8,6 +8,59 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
+}
+
+enum Resource {
+    case posts
+    case comments(postId: String)
+    
+    func httpMethod() -> HTTPMethod {
+        switch self {
+        case .posts, .comments:
+            return .get
+        }
+    }
+    
+    func header(token: String) -> [String: String] {
+        switch self {
+        case .posts, .comments:
+            return [
+                "Authorization": "\(token)",
+                "Content-Type": "application/json"
+            ]
+        }
+    }
+    
+    func path() -> String {
+        switch self {
+        case .posts:
+            return "/me/feed"
+        case .comments:
+            return "/comments"
+        }
+    }
+    
+    func urlParameters() -> [String: String] {
+        switch self {
+        case .comments(let postId):
+            return ["search_id": postId]
+        case .posts:
+            return [:]
+        }
+    }
+    
+    func body() -> Data? {
+        switch self {
+        case .posts, .comments:
+            return nil
+        }
+    }
+}
+
+
 class Networking {
     let session = URLSession.shared
     let baseURL = "https://api.producthunt.com/v1/"
@@ -57,7 +110,6 @@ class Networking {
                 return completion(comments)
             }
         }.resume()
-        
     }
 }
 
